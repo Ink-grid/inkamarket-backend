@@ -61,16 +61,16 @@ app.use('*', (req, res) => {
 });
 
 // Open Server on configurated Port
-const server = app;
+// const server = app;
 
-server.listen(PORT, () => console.info('Server listening on port ', PORT));
+app.listen(PORT, () => console.info('Server listening on port ', PORT));
 
-let io = require('socket.io')(server);
-
-io.on('connection', socket => {
-	console.log('new client connectes');
-	socket.emit('FromAPI', { info: 'wordkhjhjhhgfg' });
-	socket.on('disconnect', function() {
-		console.log('Cliente desconectado');
-	});
-});
+// let io = require('socket.io')(server);
+//
+// io.on('connection', socket => {
+// console.log('new client connectes');
+// socket.emit('FromAPI', { info: 'wordkhjhjhhgfg' });
+// socket.on('disconnect', function() {
+// console.log('Cliente desconectado');
+// });
+// });
