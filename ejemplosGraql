@@ -1,0 +1,14 @@
+notas graphql
+
+parametros en shema
+
+const typeDefs = `
+        type Query {
+            hello(name :String): [] | Int | boolean | Float
+        }
+
+        type Mutation {
+            createCateries( )
+        }
+
+`
