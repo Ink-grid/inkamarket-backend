@@ -58,8 +58,77 @@ const ControllerGraphql = {
 	async setCategoryGql(data) {
 		try {
 			let _uid = await productModel.setCategory('categorys', data);
-			await productModel.setUid('categorys', _uid.id);
+			await productModel.setUid('categorys', _uid.id, '_uid');
 			return _uid.id;
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	async getCategoryPaginationGql(first: number, category: string, after?) {
+		if (after) {
+			var products = [];
+			let next = await productModel
+				.getItemOrderbyStartAfter(
+					'products',
+					first,
+					after,
+					'category',
+					category
+				)
+				.get();
+			if (next) {
+				//let products = [];
+				next.forEach(product => {
+					products.push(product.data());
+				});
+				return products.filter(ele => ele.category === category);
+			}
+		}
+
+		let pagination = await productModel
+			.getItemOrderbyLimit('products', 'category', first, category)
+			.get();
+		if (pagination) {
+			let products = [];
+			pagination.forEach(product => {
+				products.push(product.data());
+			});
+			return products;
+		}
+	},
+	async getCategoryGql(uid) {
+		try {
+			let category = await productModel.getItem('categorys', uid);
+			if (category.exists) {
+				return category.data();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	async setProductGql(data) {
+		try {
+			let _uid = await productModel.setItem('products', data);
+			await productModel.setUid('products', _uid.id, 'sku');
+			return _uid.id;
+		} catch (error) {
+			console.log(error);
+		}
+	},
+	async getProductsByCategory(uid) {
+		try {
+			let response = await productModel.getItemsbyUid(
+				'products',
+				'category',
+				uid
+			);
+			if (response) {
+				let products = [];
+				response.forEach(product => {
+					products.push(product.data());
+				});
+				return products;
+			}
 		} catch (error) {
 			console.log(error);
 		}

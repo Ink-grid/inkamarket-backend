@@ -7,16 +7,26 @@ const typeDesf = `
     type Query {
         categories : [Category!]!
         products: [Product!]!
+        pruebaProducts(category: String!, limit: Int!, after: String): [Product!]!
     }
 
     type Mutation {
-        createCateries(input: CategoryInput) : Category
+        createCategories(input: CategoryInput) : Category
+        createProduct(input: ProductInput) : Product
     }
 
     input CategoryInput {
             title: String!
             description: String!
             uri: String!
+    }
+
+    input ProductInput {
+            category: String!,
+            name: String!,
+            warehouse: String!,
+            description: String!,
+            price: Float!
     }
 
     type Category {
@@ -29,12 +39,11 @@ const typeDesf = `
 
     type Product {
             sku: String
-            _uid_categories: String
-            _uid_warehouses: String
+            category: Category
+            warehouse: String
             name: String
             description: String
-            price: Float
-            
+            price: Float   
     }
 `;
 
