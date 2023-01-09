@@ -24,7 +24,7 @@
 		"express": "^4.17.1",
 		"express-custom-error": "^1.8.4",
 		"express-graphql": "^0.9.0",
-		"firebase-admin": "^8.10.0",
+		"firebase-admin": "^11.4.1",
 		"graphql": "^15.0.0",
 		"graphql-tools": "^4.0.7",
 		"has-keys": "^0.1.0",
